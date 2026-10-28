@@ -1,0 +1,377 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============ AUTH & USERS ============
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  passwordHash  String
+  fullName      String
+  role          String    @default("ADMIN") // SUPER_ADMIN, ADMIN, EDITOR, PRODUCT_MANAGER
+  isActive      Boolean   @default(true)
+  lastLoginAt   DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  quoteRequests QuoteRequest[]
+  auditLogs     AuditLog[]
+}
+
+// ============ PRODUCTS ============
+
+model Category {
+  id          String    @id @default(uuid())
+  name        String
+  slug        String    @unique
+  description String?
+  parentId    String?
+  parent      Category? @relation("CategoryTree", fields: [parentId], references: [id])
+  children    Category[] @relation("CategoryTree")
+  order       Int       @default(0)
+  isActive    Boolean   @default(true)
+  seoTitle    String?
+  seoDescription String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  products    Product[]
+  subCategoryProducts Product[] @relation("SubCategory")
+}
+
+model Product {
+  id                String    @id @default(uuid())
+  name              String
+  slug              String    @unique
+  code              String?   @unique
+  sku               String?   @unique
+  shortDescription  String?
+  description       String?
+  categoryId        String?
+  subCategoryId     String?
+  category          Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  subCategory       Category? @relation("SubCategory", fields: [subCategoryId], references: [id], onDelete: SetNull)
+  isActive          Boolean   @default(true)
+  isFeatured        Boolean   @default(false)
+  order             Int       @default(0)
+  seoTitle          String?
+  seoDescription    String?
+  ogImage           String?
+  canonicalUrl      String?
+  videoUrl          String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  media             ProductMedia[]
+  attributes        ProductAttribute[]
+  documents         ProductDocument[]
+  relatedProducts   ProductRelated[]
+  relatedTo         ProductRelated[] @relation("RelatedTo")
+  quoteItems        QuoteRequestItem[]
+}
+
+model ProductMedia {
+  id        String   @id @default(uuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url       String
+  type      String   @default("image") // image, video, thumbnail
+  order     Int      @default(0)
+  altText   String?
+  createdAt DateTime @default(now())
+}
+
+model ProductAttribute {
+  id        String   @id @default(uuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  key       String
+  value     String
+  group     String?  // e.g., "technical", "dimensions"
+  order     Int      @default(0)
+}
+
+model ProductDocument {
+  id        String   @id @default(uuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  title     String
+  url       String
+  type      String   @default("pdf") // pdf, cad, etc.
+  createdAt DateTime @default(now())
+}
+
+model ProductRelated {
+  id            String   @id @default(uuid())
+  productId     String
+  product       Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  relatedId     String
+  related       Product  @relation("RelatedTo", fields: [relatedId], references: [id], onDelete: Cascade)
+  createdAt     DateTime @default(now())
+
+  @@unique([productId, relatedId])
+}
+
+// ============ BANNERS ============
+
+model Banner {
+  id            String    @id @default(uuid())
+  title         String
+  description   String?
+  imageUrl      String
+  mobileImageUrl String?
+  buttonText    String?
+  buttonLink    String?
+  order         Int       @default(0)
+  isActive      Boolean   @default(true)
+  publishStart  DateTime?
+  publishEnd    DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+// ============ NEWS ============
+
+model NewsCategory {
+  id        String         @id @default(uuid())
+  name      String
+  slug      String         @unique
+  order     Int            @default(0)
+  createdAt DateTime       @default(now())
+  articles  NewsArticle[]
+}
+
+model NewsArticle {
+  id              String      @id @default(uuid())
+  title           String
+  slug            String      @unique
+  excerpt         String?
+  content         String?
+  coverImage      String?
+  categoryId      String?
+  category        NewsCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  tags            String?   // comma-separated
+  author          String?
+  status          String  @default("DRAFT") // DRAFT, SCHEDULED, PUBLISHED, ARCHIVED
+  publishDate     DateTime?
+  readTime        Int?
+  seoTitle        String?
+  seoDescription  String?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}
+
+// ============ EXHIBITIONS (Fairs) ============
+
+model Exhibition {
+  id            String          @id @default(uuid())
+  name          String
+  slug          String          @unique
+  type          String?         // fair, conference, etc.
+  country       String?
+  city          String?
+  venue         String?
+  startDate     DateTime
+  endDate       DateTime
+  boothNumber   String?
+  coverImage    String?
+  description   String?
+  websiteUrl    String?
+  status        String @default("UPCOMING") // UPCOMING, ONGOING, COMPLETED, CANCELLED
+  seoTitle      String?
+  seoDescription String?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  media         ExhibitionMedia[]
+}
+
+model ExhibitionMedia {
+  id           String     @id @default(uuid())
+  exhibitionId String
+  exhibition   Exhibition @relation(fields: [exhibitionId], references: [id], onDelete: Cascade)
+  url          String
+  type         String     @default("photo") // photo, video
+  caption      String?
+  order        Int        @default(0)
+  createdAt    DateTime   @default(now())
+}
+
+// ============ CATALOGS ============
+
+model Catalog {
+  id          String   @id @default(uuid())
+  title       String
+  slug        String   @unique
+  coverImage  String?
+  pdfUrl      String
+  category    String?
+  language    String   @default("tr")
+  version     String?
+  publishDate DateTime?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ============ CORPORATE PAGES ============
+
+model CorporatePage {
+  id        String   @id @default(uuid())
+  slug      String   @unique
+  title     String
+  content   String?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ============ QUOTE REQUESTS (B2B) ============
+
+model QuoteRequest {
+  id              String       @id @default(uuid())
+  requestNumber   String       @unique
+  companyName     String
+  contactName     String
+  email           String
+  phone           String
+  message         String?
+  status          String  @default("NEW") // NEW, IN_REVIEW, CUSTOMER_CONTACTED, QUOTE_PREPARED, COMPLETED, LOST, CANCELLED
+  internalNotes   String?
+  assignedTo      String?      // User id
+  assignedUser    User?        @relation(fields: [assignedTo], references: [id], onDelete: SetNull)
+  lostReason      String?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  items           QuoteRequestItem[]
+  history         QuoteHistory[]
+  notifications   QuoteNotification[]
+}
+
+model QuoteRequestItem {
+  id                  String       @id @default(uuid())
+  quoteRequestId      String
+  quoteRequest        QuoteRequest @relation(fields: [quoteRequestId], references: [id], onDelete: Cascade)
+  productId           String?
+  product             Product?     @relation(fields: [productId], references: [id], onDelete: SetNull)
+  productNameSnapshot String
+  productCodeSnapshot String?
+  quantity            Int          @default(1)
+  notes               String?
+  createdAt           DateTime     @default(now())
+}
+
+model QuoteHistory {
+  id           String       @id @default(uuid())
+  quoteRequestId String
+  quoteRequest QuoteRequest @relation(fields: [quoteRequestId], references: [id], onDelete: Cascade)
+  action       String
+  oldValue     String?
+  newValue     String?
+  note         String?
+  performedBy  String?
+  createdAt    DateTime     @default(now())
+}
+
+model QuoteNotification {
+  id           String       @id @default(uuid())
+  quoteRequestId String
+  quoteRequest QuoteRequest @relation(fields: [quoteRequestId], references: [id], onDelete: Cascade)
+  type         String       // email, in_app
+  status       String       @default("sent") // sent, failed
+  errorMessage String?
+  recipient    String?
+  createdAt    DateTime     @default(now())
+}
+
+// ============ CONTACT MESSAGES ============
+
+model ContactMessage {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String?
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+// ============ MEDIA ASSETS ============
+
+model MediaAsset {
+  id        String   @id @default(uuid())
+  fileName  String
+  originalName String
+  mimeType  String
+  size      Int
+  url       String
+  altText   String?
+  folder    String?
+  uploadedBy String?
+  createdAt DateTime @default(now())
+}
+
+// ============ SITE SETTINGS ============
+
+model SiteSetting {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     String   @default("")
+  type      String   @default("string") // string, json, boolean, number
+  group     String   @default("general")
+  label     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ============ NAVIGATION ============
+
+model NavigationItem {
+  id        String   @id @default(uuid())
+  label     String
+  url       String
+  order     Int      @default(0)
+  parentId  String?
+  isActive  Boolean  @default(true)
+  location  String   @default("header") // header, footer
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ============ SEO METADATA ============
+
+model SeoMetadata {
+  id            String   @id @default(uuid())
+  path          String   @unique
+  title         String?
+  description   String?
+  ogImage       String?
+  canonicalUrl  String?
+  noindex       Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+// ============ AUDIT LOG ============
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  action     String
+  entity     String
+  entityId   String?
+  oldValue   String?
+  newValue   String?
+  ipAddress  String?
+  userAgent  String?
+  createdAt  DateTime @default(now())
+}

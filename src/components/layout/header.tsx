@@ -130,10 +130,8 @@ export function Header() {
               </Link>
 
               <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-                <SheetTrigger className="lg:hidden">
-                  <Button variant="ghost" size="icon" className="text-[#101114]">
-                    {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-                  </Button>
+                <SheetTrigger className="lg:hidden inline-flex items-center justify-center rounded-md text-sm font-medium w-10 h-10 text-[#101114] hover:bg-gray-100 transition-colors">
+                  {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                 </SheetTrigger>
                 <SheetContent side="right" className="w-80 bg-[#101114] border-0 text-white z-[70]">
                   <div className="px-4 mb-6">

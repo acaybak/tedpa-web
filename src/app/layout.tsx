@@ -13,11 +13,24 @@ export const metadata: Metadata = {
     default: "TEDPA Makina — Tecrübeyi Sanata Dönüştürür",
     template: "%s | TEDPA Makina",
   },
-  description: "TEDPA Makina — Endüstriyel makine ve ekipman çözümleri. Ürün kataloğu, teknik dokümanlar ve teklif talepleri.",
+  description: "TEDPA Makina — 25+ yıl tecrübe ile endüstriyel makine ve ekipman çözümleri. Ürün kataloğu, teknik dokümanlar ve teklif talepleri.",
+  metadataBase: new URL("https://tedpa-web-two.vercel.app"),
   openGraph: {
     type: "website",
     locale: "tr_TR",
     siteName: "TEDPA Makina",
+    images: [{ url: "/logo-full.png", width: 1200, height: 630, alt: "TEDPA Makina" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
   },
 };
 

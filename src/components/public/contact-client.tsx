@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { MapPin, Phone, Mail, Clock, Send, CheckCircle } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Send, CheckCircle, Navigation } from "lucide-react";
 import { submitContactForm } from "@/actions/content-actions";
 
 export function ContactClient() {
@@ -80,7 +80,7 @@ export function ContactClient() {
                     </div>
                     <div>
                       <p className="font-medium text-[#101114]">Telefon</p>
-                      <p className="text-sm text-[#737B86]">+90 (312) 000 00 00</p>
+                      <a href="tel:+903120000000" className="text-sm text-[#737B86] hover:text-[#E30613] transition-colors">+90 (312) 000 00 00</a>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
@@ -89,7 +89,7 @@ export function ContactClient() {
                     </div>
                     <div>
                       <p className="font-medium text-[#101114]">E-posta</p>
-                      <p className="text-sm text-[#737B86]">info@tedpamakina.com</p>
+                      <a href="mailto:info@tedpamakina.com" className="text-sm text-[#737B86] hover:text-[#E30613] transition-colors">info@tedpamakina.com</a>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
@@ -104,6 +104,48 @@ export function ContactClient() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* Map */}
+            <Card className="bg-white overflow-hidden">
+              <CardContent className="p-0">
+                <div className="aspect-[4/3] bg-gray-100 relative">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d195876.29874729874!2d32.6505!3d39.9208!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d347d6a3e3e7b1%3A0x8e5a7b0c0c0c0c0c!2sAnkara%20OSB!5e0!3m2!1str!2str!4v1700000000000"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="TEDPA Makina Konum"
+                    className="absolute inset-0"
+                  />
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Directions button */}
+            <a
+              href="https://maps.google.com/?q=Ankara+OSB"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block"
+            >
+              <Card className="bg-white hover:bg-gray-50 transition-colors group cursor-pointer">
+                <CardContent className="p-4 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-[#E30613]/10 flex items-center justify-center">
+                      <Navigation className="w-5 h-5 text-[#E30613]" />
+                    </div>
+                    <div>
+                      <p className="font-medium text-[#101114] text-sm">Yol Tarifi Al</p>
+                      <p className="text-xs text-[#737B86]">Google Maps ile yön tarifi</p>
+                    </div>
+                  </div>
+                  <span className="text-[#E30613] group-hover:translate-x-1 transition-transform">→</span>
+                </CardContent>
+              </Card>
+            </a>
           </div>
 
           {/* Contact Form */}

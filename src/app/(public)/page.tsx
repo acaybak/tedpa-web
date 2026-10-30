@@ -48,7 +48,7 @@ export default async function HomePage() {
     "logo": "https://tedpa-web-two.vercel.app/logo-full.png",
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": "+90-312-000-00-00",
+      "telephone": "+90-545-101-35-70",
       "contactType": "customer service",
       "email": "info@tedpamakina.com",
       "areaServed": "TR",

@@ -111,11 +111,11 @@ export function Footer() {
               İletişim
             </h4>
             <div className="space-y-3 mb-6">
-              <a href="tel:+903120000000" className="flex items-center gap-3 text-sm text-gray-500 hover:text-white transition-colors group">
+              <a href="tel:+905451013570" className="flex items-center gap-3 text-sm text-gray-500 hover:text-white transition-colors group">
                 <div className="w-8 h-8 rounded-lg bg-white/5 group-hover:bg-[#E30613]/10 flex items-center justify-center transition-colors">
                   <Phone className="w-3.5 h-3.5 text-[#E30613]" />
                 </div>
-                +90 (312) 000 00 00
+                +90 545 101 35 70
               </a>
               <a href="mailto:info@tedpamakina.com" className="flex items-center gap-3 text-sm text-gray-500 hover:text-white transition-colors group">
                 <div className="w-8 h-8 rounded-lg bg-white/5 group-hover:bg-[#E30613]/10 flex items-center justify-center transition-colors">

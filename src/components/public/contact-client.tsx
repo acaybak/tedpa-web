@@ -80,7 +80,7 @@ export function ContactClient() {
                     </div>
                     <div>
                       <p className="font-medium text-[#101114]">Telefon</p>
-                      <a href="tel:+903120000000" className="text-sm text-[#737B86] hover:text-[#E30613] transition-colors">+90 (312) 000 00 00</a>
+                      <a href="tel:+905451013570" className="text-sm text-[#737B86] hover:text-[#E30613] transition-colors">+90 545 101 35 70</a>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">

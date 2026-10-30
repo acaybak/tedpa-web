@@ -48,9 +48,9 @@ export function Header() {
         <div className="bg-[#101114] text-gray-400 h-full">
           <div className="container mx-auto px-4 flex items-center justify-between h-full">
             <div className="hidden md:flex items-center gap-6">
-              <a href="tel:+903120000000" className="flex items-center gap-1.5 hover:text-white transition-colors">
+              <a href="tel:+905451013570" className="flex items-center gap-1.5 hover:text-white transition-colors">
                 <Phone className="w-3 h-3" />
-                +90 (312) 000 00 00
+                +90 545 101 35 70
               </a>
               <a href="mailto:info@tedpamakina.com" className="flex items-center gap-1.5 hover:text-white transition-colors">
                 <Mail className="w-3 h-3" />
@@ -179,9 +179,9 @@ export function Header() {
                       </Link>
                     </div>
                     <div className="mt-8 px-4 space-y-3 text-sm text-gray-500">
-                      <a href="tel:+903120000000" className="flex items-center gap-2">
+                      <a href="tel:+905451013570" className="flex items-center gap-2">
                         <Phone className="w-4 h-4 text-[#E30613]" />
-                        +90 (312) 000 00 00
+                        +90 545 101 35 70
                       </a>
                       <a href="mailto:info@tedpamakina.com" className="flex items-center gap-2">
                         <Mail className="w-4 h-4 text-[#E30613]" />

@@ -41,7 +41,7 @@ export function WhatsAppButton() {
       </AnimatePresence>
 
       <a
-        href="https://wa.me/903120000000?text=Merhaba%2C%20%C3%BCr%C3%BCnleriniz%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum."
+        href="https://wa.me/905451013570?text=Merhaba%2C%20%C3%BCr%C3%BCnleriniz%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum."
         target="_blank"
         rel="noopener noreferrer"
         aria-label="WhatsApp ile iletişime geçin"

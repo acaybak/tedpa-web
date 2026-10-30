@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, FileText, Shield, Award, Settings } from "lucide-react";
+import { ArrowRight, ClipboardList, Shield, Award, Settings } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -91,7 +91,7 @@ export function HeroSection() {
                     variant="outline"
                     className="border-white/15 text-white hover:bg-white/5 hover:border-white/25 text-base px-8 h-14 rounded-xl font-semibold tracking-wide transition-all"
                   >
-                    <FileText className="w-5 h-5 mr-2" />
+                    <ClipboardList className="w-5 h-5 mr-2" />
                     Teklif Al
                   </Button>
                 </Link>

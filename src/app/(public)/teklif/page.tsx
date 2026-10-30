@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Trash2, Plus, Minus, FileText, CheckCircle } from "lucide-react";
+import { Trash2, Plus, Minus, ClipboardList, CheckCircle } from "lucide-react";
 import { submitQuoteRequest } from "@/actions/quote-actions";
 
 interface QuoteItem {
@@ -146,7 +146,7 @@ export default function QuotePage() {
         {items.length === 0 ? (
           <Card>
             <CardContent className="py-16 text-center">
-              <FileText className="w-12 h-12 text-[#737B86] mx-auto mb-4" />
+              <ClipboardList className="w-12 h-12 text-[#737B86] mx-auto mb-4" />
               <p className="text-[#737B86] text-lg mb-2">Teklif listeniz boş</p>
               <p className="text-sm text-[#737B86] mb-6">
                 Ürünleri &quot;Teklif Listeme Ekle&quot; butonuyla ekleyebilirsiniz.

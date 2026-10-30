@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { FileText, ArrowRight, Phone } from "lucide-react";
+import { ClipboardList, ArrowRight, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 
 export function QuoteCTA() {
@@ -51,7 +51,7 @@ export function QuoteCTA() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/teklif">
               <Button size="lg" className="bg-red-gradient hover:opacity-90 text-white text-base px-10 h-14 rounded-xl shadow-red-glow font-semibold tracking-wide transition-all group">
-                <FileText className="w-5 h-5 mr-2" />
+                <ClipboardList className="w-5 h-5 mr-2" />
                 Teklif Listesi Oluştur
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>

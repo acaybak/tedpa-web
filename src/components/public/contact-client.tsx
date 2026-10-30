@@ -71,7 +71,7 @@ export function ContactClient() {
                     </div>
                     <div>
                       <p className="font-medium text-[#101114]">Adres</p>
-                      <p className="text-sm text-[#737B86]">Organize Sanayi Bölgesi, Ankara, Türkiye</p>
+                      <p className="text-sm text-[#737B86]">29 Ekim Mah. 10002 Sk. B No: 16/2<br />Menemen / İzmir</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
@@ -110,7 +110,7 @@ export function ContactClient() {
               <CardContent className="p-0">
                 <div className="aspect-[4/3] bg-gray-100 relative">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d195876.29874729874!2d32.6505!3d39.9208!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d347d6a3e3e7b1%3A0x8e5a7b0c0c0c0c0c!2sAnkara%20OSB!5e0!3m2!1str!2str!4v1700000000000"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3120!2d27.05!3d38.73!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sMenemen+IZMIR!5e0!3m2!1str!2str!4v1700000000000"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
@@ -126,7 +126,7 @@ export function ContactClient() {
 
             {/* Directions button */}
             <a
-              href="https://maps.google.com/?q=Ankara+OSB"
+              href="https://maps.google.com/?q=29+Ekim+Mah+10002+Sk+Menemen+Izmir"
               target="_blank"
               rel="noopener noreferrer"
               className="block"
@@ -139,7 +139,7 @@ export function ContactClient() {
                     </div>
                     <div>
                       <p className="font-medium text-[#101114] text-sm">Yol Tarifi Al</p>
-                      <p className="text-xs text-[#737B86]">Google Maps ile yön tarifi</p>
+                      <p className="text-xs text-[#737B86]">Menemen / İzmir — Google Maps</p>
                     </div>
                   </div>
                   <span className="text-[#E30613] group-hover:translate-x-1 transition-transform">→</span>

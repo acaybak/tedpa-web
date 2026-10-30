@@ -36,8 +36,8 @@ export function Footer() {
               />
             </div>
             <p className="text-gray-500 text-sm leading-relaxed mb-6 max-w-xs">
-              Tecrübeyi Sanata Dönüştürür. Endüstriyel makine ve ekipman çözümleri ile
-              sektöre hizmet veriyoruz.
+              Tecrübeyi Sanata Dönüştürür. Endüstriyel makine ve yedek parça
+              çözümleri ile sektöre hizmet veriyoruz.
             </p>
             {/* Social media */}
             <div className="flex items-center gap-3">
@@ -127,7 +127,7 @@ export function Footer() {
                 <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center">
                   <MapPin className="w-3.5 h-3.5 text-[#E30613]" />
                 </div>
-                OSB, Ankara, Türkiye
+                <span className="text-sm text-gray-500">29 Ekim Mah. 10002 Sk. B No: 16/2<br />Menemen / İzmir</span>
               </div>
               <div className="flex items-center gap-3 text-sm text-gray-500">
                 <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center">
@@ -151,7 +151,7 @@ export function Footer() {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-xs text-gray-600">
-              © 2026 TEDPA Makina. Tüm hakları saklıdır.
+              © 2026 TEDPA Makina Yedek Parça Sanayi ve Ticaret Ltd.Şti. Tüm hakları saklıdır.
             </p>
             <div className="flex items-center gap-6">
               <Link href="/kurumsal/gizlilik-politikasi" className="text-xs text-gray-700 hover:text-gray-400 transition-colors">

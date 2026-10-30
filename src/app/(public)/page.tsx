@@ -56,10 +56,11 @@ export default async function HomePage() {
     },
     "address": {
       "@type": "PostalAddress",
-      "addressLocality": "Ankara",
+      "addressLocality": "Menemen, İzmir",
       "addressCountry": "TR",
-      "streetAddress": "Organize Sanayi Bölgesi",
+      "streetAddress": "29 Ekim Mah. 10002 Sk. B No: 16/2",
     },
+    "legalName": "Tedpa Makina Yedek Parça Sanayi ve Ticaret Ltd.Şti.",
   };
 
   return (

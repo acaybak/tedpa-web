@@ -109,7 +109,7 @@ export default function QuotePage() {
 
   if (step === "success" && result) {
     return (
-      <div className="pt-20 min-h-screen bg-[#F4F5F7]">
+      <div className="pt-32 min-h-screen bg-[#F4F5F7]">
         <div className="container mx-auto px-4 py-20">
           <div className="max-w-md mx-auto text-center">
             <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-6" />
@@ -135,7 +135,7 @@ export default function QuotePage() {
   }
 
   return (
-    <div className="pt-20 min-h-screen bg-[#F4F5F7]">
+    <div className="pt-32 min-h-screen bg-[#F4F5F7]">
       <div className="container mx-auto px-4 py-10">
         <div className="w-12 h-1 bg-[#E30613] mb-4" />
         <h1 className="text-3xl font-bold text-[#101114] mb-2">Teklif Listem</h1>

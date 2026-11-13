@@ -67,7 +67,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
   const mainImage = images[0];
 
   return (
-    <div className="pt-20">
+    <div className="pt-32">
       {/* Breadcrumb */}
       <div className="bg-[#F4F5F7] py-3">
         <div className="container mx-auto px-4">

@@ -20,7 +20,7 @@ export default async function CorporatePageView({ params }: { params: Promise<{ 
   const activePages = allPages.filter((p: { isActive: boolean }) => p.isActive);
 
   return (
-    <section className="py-20 bg-white min-h-screen">
+    <section className="pt-32 pb-20 bg-white min-h-screen">
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-4 gap-12">
           {/* Sidebar Navigation */}

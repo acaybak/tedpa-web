@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 export const instant = false;
 
 export const metadata: Metadata = {
-  title: "Ürünler | TEDPA Makina",
+  title: "Ürünler",
   description: "TEDPA Makina endüstriyel ürün kataloğu. Tüm ürünleri inceleyin ve teklif talep edin.",
   openGraph: {
     title: "Ürünler | TEDPA Makina",
@@ -39,7 +39,7 @@ export default async function ProductsPage({
   });
 
   return (
-    <div className="pt-20">
+    <div className="pt-32">
       {/* Page Header */}
       <section className="bg-[#101114] py-16">
         <div className="container mx-auto px-4">

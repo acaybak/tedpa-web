@@ -29,7 +29,7 @@ export function ContactClient() {
 
   if (status === "success") {
     return (
-      <section className="py-20 bg-white min-h-screen">
+      <section className="pt-32 pb-20 bg-white min-h-screen">
         <div className="container mx-auto px-4">
           <div className="max-w-lg mx-auto text-center py-20">
             <CheckCircle className="w-20 h-20 text-green-500 mx-auto mb-6" />
@@ -47,7 +47,7 @@ export function ContactClient() {
   }
 
   return (
-    <section className="py-20 bg-gray-50 min-h-screen">
+    <section className="pt-32 pb-20 bg-gray-50 min-h-screen">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="mb-12">

@@ -4,16 +4,27 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { Menu, X, Phone, Mail, Clock, ChevronRight } from "lucide-react";
+import { Menu, X, Phone, Mail, Clock, ChevronRight, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { productionSections } from "@/lib/production-content";
 
-const navItems = [
+type NavChild = { label: string; href: string; index?: string };
+type NavItem = { label: string; href: string; children?: NavChild[] };
+
+const navItems: NavItem[] = [
   { label: "Ana Sayfa", href: "/" },
   { label: "Ürünler", href: "/urunler" },
-  { label: "Haberler", href: "/haberler" },
-  { label: "Fuarlar", href: "/fuarlar" },
+  {
+    label: "Üretim",
+    href: "/uretim",
+    children: productionSections.map((section) => ({
+      label: section.title,
+      href: `/uretim#${section.slug}`,
+      index: section.index,
+    })),
+  },
   { label: "Kataloglar", href: "/kataloglar" },
   { label: "İletişim", href: "/iletisim" },
 ];
@@ -22,6 +33,7 @@ export function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [openMobileGroup, setOpenMobileGroup] = useState<string | null>(null);
 
   useEffect(() => {
     let ticking = false;
@@ -110,21 +122,65 @@ export function Header() {
             <nav className="hidden lg:flex items-center gap-1">
               {navItems.map((item) => {
                 const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+
+                if (!item.children) {
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className={cn(
+                        "relative px-3 xl:px-4 py-2 text-[13px] font-semibold tracking-wide transition-colors uppercase group",
+                        isActive ? "text-[#E30613]" : "text-[#23262B] hover:text-[#E30613]"
+                      )}
+                    >
+                      {item.label}
+                      <span className={cn(
+                        "absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-[#E30613] transition-all duration-300",
+                        isActive ? "w-full" : "w-0 group-hover:w-full"
+                      )} />
+                    </Link>
+                  );
+                }
+
                 return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={cn(
-                      "relative px-4 py-2 text-[13px] font-semibold tracking-wide transition-colors uppercase group",
-                      isActive ? "text-[#E30613]" : "text-[#23262B] hover:text-[#E30613]"
-                    )}
-                  >
-                    {item.label}
-                    <span className={cn(
-                      "absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-[#E30613] transition-all duration-300",
-                      isActive ? "w-full" : "w-0 group-hover:w-full"
-                    )} />
-                  </Link>
+                  <div key={item.href} className="relative group">
+                    <Link
+                      href={item.href}
+                      className={cn(
+                        "relative flex items-center gap-1 px-3 xl:px-4 py-2 text-[13px] font-semibold tracking-wide transition-colors uppercase",
+                        isActive ? "text-[#E30613]" : "text-[#23262B] hover:text-[#E30613]"
+                      )}
+                    >
+                      {item.label}
+                      <ChevronDown className="w-3 h-3 opacity-50 transition-transform duration-300 group-hover:rotate-180" />
+                      <span className={cn(
+                        "absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-[#E30613] transition-all duration-300",
+                        isActive ? "w-full" : "w-0 group-hover:w-full"
+                      )} />
+                    </Link>
+
+                    <div className="invisible absolute left-0 top-full z-50 pt-3 opacity-0 translate-y-1 transition-all duration-200 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:visible group-focus-within:opacity-100 group-focus-within:translate-y-0">
+                      <div className="w-[19rem] rounded-xl border border-gray-100 bg-white p-2 shadow-premium-lg">
+                        <p className="px-3 pt-2 pb-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-[#737B86]">
+                          Üretim Başlıkları
+                        </p>
+                        {item.children.map((child) => (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            className="group/item flex items-start gap-2.5 rounded-lg px-3 py-2 transition-colors hover:bg-[#F4F5F7]"
+                          >
+                            <span className="mt-0.5 font-mono text-[10px] font-semibold text-[#E30613]">
+                              {child.index}
+                            </span>
+                            <span className="text-[12.5px] font-medium leading-snug text-[#23262B] transition-colors group-hover/item:text-[#E30613]">
+                              {child.label}
+                            </span>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 );
               })}
             </nav>
@@ -142,7 +198,7 @@ export function Header() {
                 <SheetTrigger className="lg:hidden inline-flex items-center justify-center rounded-md text-sm font-medium w-10 h-10 text-[#101114] hover:bg-gray-100 transition-colors">
                   {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                 </SheetTrigger>
-                <SheetContent side="right" className="w-80 bg-[#101114] border-0 text-white z-[70]">
+                <SheetContent side="right" className="w-80 bg-[#101114] border-0 text-white z-[70] overflow-y-auto">
                   <div className="px-4 mb-6">
                     <Image
                       src="/logo-header.png"
@@ -155,19 +211,71 @@ export function Header() {
                   <div className="flex flex-col gap-1">
                     {navItems.map((item) => {
                       const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+
+                      if (!item.children) {
+                        return (
+                          <Link
+                            key={item.href}
+                            href={item.href}
+                            onClick={() => setMobileOpen(false)}
+                            className={cn(
+                              "flex items-center justify-between px-4 py-3.5 text-base font-medium rounded-lg transition-colors",
+                              isActive ? "text-white bg-white/10" : "text-gray-300 hover:text-white hover:bg-white/5"
+                            )}
+                          >
+                            {item.label}
+                            <ChevronRight className="w-4 h-4 opacity-30" />
+                          </Link>
+                        );
+                      }
+
+                      const isExpanded = openMobileGroup === item.href;
                       return (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          onClick={() => setMobileOpen(false)}
-                          className={cn(
-                            "flex items-center justify-between px-4 py-3.5 text-base font-medium rounded-lg transition-colors",
-                            isActive ? "text-white bg-white/10" : "text-gray-300 hover:text-white hover:bg-white/5"
+                        <div key={item.href}>
+                          <div className={cn(
+                            "flex items-center rounded-lg transition-colors",
+                            isActive ? "bg-white/10" : "hover:bg-white/5"
+                          )}>
+                            <Link
+                              href={item.href}
+                              onClick={() => setMobileOpen(false)}
+                              className={cn(
+                                "flex-1 px-4 py-3.5 text-base font-medium transition-colors",
+                                isActive ? "text-white" : "text-gray-300 hover:text-white"
+                              )}
+                            >
+                              {item.label}
+                            </Link>
+                            <button
+                              type="button"
+                              onClick={() => setOpenMobileGroup(isExpanded ? null : item.href)}
+                              aria-expanded={isExpanded}
+                              aria-label={`${item.label} alt başlıkları`}
+                              className="p-3.5 text-gray-500 hover:text-white transition-colors"
+                            >
+                              <ChevronDown className={cn(
+                                "w-4 h-4 transition-transform duration-300",
+                                isExpanded && "rotate-180"
+                              )} />
+                            </button>
+                          </div>
+
+                          {isExpanded && (
+                            <div className="mt-1 mb-2 ml-4 space-y-0.5 border-l border-white/10 pl-2">
+                              {item.children.map((child) => (
+                                <Link
+                                  key={child.href}
+                                  href={child.href}
+                                  onClick={() => setMobileOpen(false)}
+                                  className="flex items-start gap-2 rounded-md px-3 py-2 text-[13px] text-gray-400 hover:text-white hover:bg-white/5 transition-colors"
+                                >
+                                  <span className="mt-0.5 font-mono text-[10px] text-[#E30613]">{child.index}</span>
+                                  <span className="leading-snug">{child.label}</span>
+                                </Link>
+                              ))}
+                            </div>
                           )}
-                        >
-                          {item.label}
-                          <ChevronRight className="w-4 h-4 opacity-30" />
-                        </Link>
+                        </div>
                       );
                     })}
                     <div className="mt-6 px-4">

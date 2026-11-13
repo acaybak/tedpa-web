@@ -69,6 +69,7 @@ export function Footer() {
             <ul className="space-y-3">
               {[
                 { label: "Ürünler", href: "/urunler" },
+                { label: "Üretim", href: "/uretim" },
                 { label: "Haberler", href: "/haberler" },
                 { label: "Fuarlar", href: "/fuarlar" },
                 { label: "Kataloglar", href: "/kataloglar" },

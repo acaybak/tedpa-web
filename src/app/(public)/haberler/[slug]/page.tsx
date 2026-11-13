@@ -26,7 +26,7 @@ export default async function NewsDetailPage({ params }: { params: Promise<{ slu
   };
 
   return (
-    <section className="py-20 bg-white min-h-screen">
+    <section className="pt-32 pb-20 bg-white min-h-screen">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto">
           {/* Back link */}

@@ -317,6 +317,24 @@ function FinalCta() {
 export function ProductionPage() {
   const [active, setActive] = useState(productionSections[0].slug);
 
+  // Handle incoming hash (e.g. /uretim#bolum-slug) from header dropdown navigation
+  useEffect(() => {
+    const applyHash = () => {
+      const hash = window.location.hash.replace(/^#/, "");
+      if (!hash) return;
+      const el = document.getElementById(hash);
+      if (el) {
+        // slight delay so the browser has painted the section
+        requestAnimationFrame(() => {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      }
+    };
+    applyHash();
+    window.addEventListener("hashchange", applyHash);
+    return () => window.removeEventListener("hashchange", applyHash);
+  }, []);
+
   useEffect(() => {
     const elements = productionSections
       .map((section) => document.getElementById(section.slug))
